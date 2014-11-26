@@ -16,4 +16,8 @@ Output file format
 * Default hours to take images is between 7am and 5pm + 1 hour either side
 * Designed to be run constantly - with the quality settings this equates to about 1gb of JPG images per day
 
+Unit testing
+------------
+    chmod 700 ./run_tests.sh
+    ./run_tests.sh
 

@@ -3,20 +3,38 @@ import sys
 import time
 from datetime import datetime
 from camera import exposureCalc
+from config import config
 
-def run_loop(base, pause):
-    am = 700
-    pm = 1700
+def try_to_mkdir(path):
+    if os.path.exists(path) == False:
+        os.makedirs(path)
+
+def prepare_dir(base):
+    now = datetime.now()
+    path = str(now.year) 
+    try_to_mkdir(base + "/" +path)
+
+    path = str(now.year)  + "/"  + str(now.month)
+    try_to_mkdir(base + "/" +path)
+
+    path = str( datetime.now().year)  + "/"  + str( datetime.now().month)+"/"+ str( datetime.now().day)
+    try_to_mkdir(base + "/" +path)
+
+    path =  str( datetime.now().year)  + "/"  + str( datetime.now().month)+"/"+ str( datetime.now().day)+"/"+ str( datetime.now().hour)
+    try_to_mkdir(base + "/" +path)
+    return path
+
+def run_loop(base, pause, config):
+    am = config["am"]
+    pm = config["pm"]
     exposureCalc1= exposureCalc(am, pm)
-    height = 1536
-    width = 2048
+
+    height = config["height"]
+    width = config["width"]
+
     current_milli_time = lambda: int(round(time.time() * 1000))
     
     print("Pause : " + str(pause) )
-
-    def try_to_mkdir(path):
-        if os.path.exists(path) == False:
-            os.makedirs(path)
 
     while True:
         hoursMinutes=int(time.strftime("%H%M"))
@@ -24,23 +42,14 @@ def run_loop(base, pause):
         take_shot = exposureCalc1.take_shot(hoursMinutes)
 
         if (take_shot == True):
-
-            path = str( datetime.now().year) 
-            try_to_mkdir(base + "/" +path)
-
-            path = str( datetime.now().year)  + "/"  + str( datetime.now().month)
-            try_to_mkdir(base + "/" +path)
-
-            path = str( datetime.now().year)  + "/"  + str( datetime.now().month)+"/"+ str( datetime.now().day)
-            try_to_mkdir(base + "/" +path)
-
-            path =  str( datetime.now().year)  + "/"  + str( datetime.now().month)+"/"+ str( datetime.now().day)+"/"+ str( datetime.now().hour)
-            try_to_mkdir(base + "/" +path)
+            path = prepare_dir(base)
 
             mili = str(current_milli_time())
             name=path.replace("/","_") +"_"+mili+".jpg"
             print("Capturing " + name+" in " + exposureMode + " mode")
-            os.system("/opt/vc/bin/raspistill -q 40 "+\
+            os.system("/opt/vc/bin/raspistill -q "+str(config["quality"])+" "+\
+                "-hf "+\
+                "-vf "+\
                 "-h "+str(height)+\
                 " -w "+str(width)+\
                 " --exposure " +exposureMode +\
@@ -57,8 +66,8 @@ if(__name__ == '__main__'):
     else:
 	try:
         	pauseInterval = int(sys.argv[1])
-        	basePath="/mnt/usbflash"
-        	run_loop(basePath,pauseInterval)
+        	basePath=config["base_path"]
+        	run_loop(basePath,pauseInterval, config)
 	except KeyboardInterrupt:
 		print ("Cancelling take.py")
 

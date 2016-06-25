@@ -25,7 +25,7 @@ class test_camera(unittest.TestCase):
 		self.assertEqual(exp.take_shot(1700), True)
 		self.assertEqual(exp.take_shot(1245), True)
 		self.assertEqual(exp.take_shot(700), True)
-		self.assertEqual(exp.take_shot(600), True)
+		self.assertEqual(exp.take_shot(699), False)
 		
 		self.assertEqual(exp.take_shot(0), False)
 		self.assertEqual(exp.take_shot(500), False)
@@ -34,8 +34,12 @@ class test_camera(unittest.TestCase):
 	def test_take_shot_rangetest(self):
 		exp=exposureCalc(700, 1700)
 		for x in range(0,2300):
-			exp.take_shot(x)
-		self.assertTrue(True)
+			val = exp.take_shot(x)
+			# print(str(x) + " = (x) = " + str(val))
+			if(x >= 700 and x <= 1700):
+				self.assertTrue(val)
+			else:
+				self.assertFalse(val)
 
 	def test_exposureCalc_rangetest(self):
 		exp=exposureCalc(700, 1700)

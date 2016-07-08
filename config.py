@@ -1,5 +1,5 @@
 config = {}
-config["am"] = 500
+config["am"] = 400
 config["pm"] = 2000
 
 config["base_path"] = "/var/image"

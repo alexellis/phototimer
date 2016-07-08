@@ -1,12 +1,12 @@
 phototimer - smart time-lapses
 ==========
 
-phototimer gives you a smart way to capture photos for your timelapses. It is smart because it only takes pictures between the hours you specify, creates a useful folder structure and simple because it only needs Python.
+phototimer gives you a smart way to capture photos for your timelapses. It is smart because it only takes pictures between the hours you specify and creates a useful folder structure. It is simple because it only depends on Python and `raspistill` both of which are normally already available.
 
 How does it work?
 ------------------
 
-Start phototimer through a terminal, ssh connection or `@reboot crontab` specifying the amount of seconds between photos after that. By default photos are stored in /mnt/usbflash, but this is configurable along with daylight hours and the quality level of the photos.
+Start phototimer through a terminal, ssh connection or `@reboot crontab` specifying the amount of seconds between photos after that. By default photos are stored in `/mnt/usbflash`, but this is configurable along with daylight hours and the quality level of the photos.
 
 
 Usage

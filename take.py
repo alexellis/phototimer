@@ -65,7 +65,7 @@ def run_loop(base, pause, config):
 
             os_command = make_os_command(config, exposureMode, file_name)
             os.system(os_command)
-            print("Written: " file_name)
+            print("Written: " + file_name)
         else:
             print("Shot cancelled during hours of darkness")
 

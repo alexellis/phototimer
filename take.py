@@ -38,6 +38,7 @@ def make_os_command(config, exposureMode , file_name):
         " --exposure " +exposureMode +\
         " --metering " + config["metering_mode"] +\
         " -o "+file_name
+    return os_command
 
 def run_loop(base, pause, config):
     am = config["am"]

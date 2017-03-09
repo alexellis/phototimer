@@ -4,6 +4,12 @@ import time
 from datetime import datetime
 from camera import exposureCalc
 from config import config
+from picamera import PiCamera
+
+picam = PiCamera()
+picam.resolution = (int(config["width"]),int(config["height"]))
+picam.start_preview()
+
 
 def try_to_mkdir(path):
     if os.path.exists(path) == False:
@@ -64,7 +70,8 @@ def run_loop(base, pause, config):
             file_name = base + "/" + path + "/" + name
 
             os_command = make_os_command(config, exposureMode, file_name)
-            os.system(os_command)
+#            print(os_command)
+            picam.capture(file_name)
             print("Written: " + file_name)
         else:
             print("Shot cancelled during hours of darkness")

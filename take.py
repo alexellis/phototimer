@@ -10,17 +10,13 @@ def try_to_mkdir(path):
         os.makedirs(path)
 
 def prepare_dir(base, now):
-    path = str(now.year)
-    try_to_mkdir(base + "/" +path)
+    year = format(datetime.now().year, '04')
+    month = format(datetime.now().month, '02')
+    day = format(datetime.now().day, '02')
+    hour = format(datetime.now().hour, '02')
 
-    path = str(now.year)  + "/"  + str(now.month)
-    try_to_mkdir(base + "/" +path)
-
-    path = str( datetime.now().year)  + "/"  + str( datetime.now().month)+"/"+ str( datetime.now().day)
-    try_to_mkdir(base + "/" +path)
-
-    path =  str( datetime.now().year)  + "/"  + str( datetime.now().month)+"/"+ str( datetime.now().day)+"/"+ str( datetime.now().hour)
-    try_to_mkdir(base + "/" +path)
+    path =  str(year + "/"  + month +"/"+ day + "/" + hour)
+    try_to_mkdir(base + "/" + path)
     return path
 
 def make_os_command(config, exposureMode , file_name):

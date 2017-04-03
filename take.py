@@ -1,9 +1,20 @@
 import os
 import sys
 import time
+import thread
 from datetime import datetime
 from camera import exposureCalc
 from config import config
+import SimpleHTTPServer
+import SocketServer
+
+def start_server(base, port):
+    try_to_mkdir(base)
+    os.chdir(base)
+    Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+    httpd = SocketServer.TCPServer(("", port), Handler)
+    print("Serving at port " + str(port))
+    httpd.serve_forever()
 
 def try_to_mkdir(path):
     if os.path.exists(path) == False:
@@ -73,7 +84,14 @@ if(__name__ == '__main__'):
     else:
     	try:
             	pauseInterval = int(sys.argv[1])
-            	basePath=config["base_path"]
+            	basePath = config["base_path"]
+
+                if "http_server" in config:
+                    if config["http_server"]:
+                        port = config["http_port"]
+                        thread.start_new_thread(start_server, (basePath, port))
+
             	run_loop(basePath,pauseInterval, config)
+
     	except KeyboardInterrupt:
     		print ("Cancelling take.py")

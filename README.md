@@ -1,15 +1,17 @@
-phototimer - smart time-lapses
+phototimer - create timelapses with your Raspberry Pi
 ==========
 
 phototimer gives you a smart way to capture photos for your timelapses. It is smart because it only takes pictures between the hours you specify and creates a useful folder structure. It is simple because it only depends on Python and `raspistill` both of which are normally already available.
 
-This software was originally featured on my blog in Oct 2015:
+### Blog posts on phototimer:
+
+* [Build a Timelapse Rig with your Raspberry Pi](http://blog.alexellis.io/raspberry-pi-timelapse/)
 
 * [Portable wildlife timelapse](http://blog.alexellis.io/centreparcs-timelapse/)
 
-An example timelapse was uploaded to YouTube showing some mint cuttings growing in May 2016:
+Example videos:
 
-* [Video: Mint cuttings on - PI Zero Timelapse ](https://www.youtube.com/watch?v=Kkg6dyr4t0c)
+* [YouTube playlist created with PhotoTimer](https://www.youtube.com/playlist?list=PLlIapFDp305Am5KuvdUInmAEjKXLBYKW2)
 
 How does it work?
 ------------------

@@ -56,6 +56,19 @@ Stay tuned for a Dockerfile that packages this code into a single unit. For now 
 
 > You will need to run the container in privileged mode to gain access to the camera.
 
+If you have a HDD or USB pen-drive mounted at /mnt/data, then start the contaniner like this:
+
+```
+# docker run --privileged -v /mnt/data/:/var/image --name cam -d alexellis2/phototimer
+```
+
+If you need specific overrides in your config then mount it into the running container:
+
+```
+# docker run --privileged -v `pwd`/config.py:/root/images/config.py -v /mnt/data/:/var/image --name cam -d alexellis2/phototimer
+```
+
+
 Troubleshooting
 ---------------
 If you find that phototimer is automatically exiting then you may want to use a tool like `screen` to make sure you can keep an eye on the process.

@@ -65,7 +65,7 @@ If you have a HDD or USB pen-drive mounted at /mnt/data, then start the contanin
 If you need specific overrides in your config then mount it into the running container:
 
 ```
-# docker run --privileged -v `pwd`/config.py:/root/images/config.py -v /mnt/data/:/var/image --name cam -d alexellis2/phototimer
+#docker run --restart=always --privileged -v `pwd`/phototimer/config.py:/root/images/config.py -v /mnt/data/:/var/image --name cam -d alexellis2/phototimer
 ```
 
 

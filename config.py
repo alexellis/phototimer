@@ -2,7 +2,7 @@ config = {}
 config["am"] = 400
 config["pm"] = 2000
 
-config["flip_horizontal"] = True
+config["flip_horizontal"] = False
 config["flip_vertical"] = False
 config["metering_mode"] = "matrix"
 

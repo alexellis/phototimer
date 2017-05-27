@@ -1,26 +1,33 @@
 import os
 import sys
 import time
+import thread
 from datetime import datetime
 from camera import exposureCalc
 from config import config
+import SimpleHTTPServer
+import SocketServer
+
+def start_server(base, port):
+    try_to_mkdir(base)
+    os.chdir(base)
+    Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+    httpd = SocketServer.TCPServer(("", port), Handler)
+    print("Serving at port " + str(port))
+    httpd.serve_forever()
 
 def try_to_mkdir(path):
     if os.path.exists(path) == False:
         os.makedirs(path)
 
 def prepare_dir(base, now):
-    path = str(now.year)
-    try_to_mkdir(base + "/" +path)
+    year = format(datetime.now().year, '04')
+    month = format(datetime.now().month, '02')
+    day = format(datetime.now().day, '02')
+    hour = format(datetime.now().hour, '02')
 
-    path = str(now.year)  + "/"  + str(now.month)
-    try_to_mkdir(base + "/" +path)
-
-    path = str( datetime.now().year)  + "/"  + str( datetime.now().month)+"/"+ str( datetime.now().day)
-    try_to_mkdir(base + "/" +path)
-
-    path =  str( datetime.now().year)  + "/"  + str( datetime.now().month)+"/"+ str( datetime.now().day)+"/"+ str( datetime.now().hour)
-    try_to_mkdir(base + "/" +path)
+    path =  str(year + "/"  + month +"/"+ day + "/" + hour)
+    try_to_mkdir(base + "/" + path)
     return path
 
 def make_os_command(config, exposureMode , file_name):
@@ -77,7 +84,14 @@ if(__name__ == '__main__'):
     else:
     	try:
             	pauseInterval = int(sys.argv[1])
-            	basePath=config["base_path"]
+            	basePath = config["base_path"]
+
+                if "http_server" in config:
+                    if config["http_server"]:
+                        port = config["http_port"]
+                        thread.start_new_thread(start_server, (basePath, port))
+
             	run_loop(basePath,pauseInterval, config)
+
     	except KeyboardInterrupt:
     		print ("Cancelling take.py")

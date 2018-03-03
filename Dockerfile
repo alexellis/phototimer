@@ -1,6 +1,9 @@
-FROM alexellis2/raspistill:latest
+FROM resin/rpi-raspbian:stretch
 ENTRYPOINT []
-RUN apt-get update -qy && apt-get install -qy python
+
+RUN apt-get update -qy \
+  && apt-get install -qy python libraspberrypi-bin --no-install-recommends
+
 COPY . .
 
 VOLUME /var/image/

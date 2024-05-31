@@ -51,25 +51,6 @@ Output file format
 * Default hours to take images is between 7am and 5pm + 1 hour either side
 * Designed to be run constantly - with the quality settings this equates to about 1gb of JPG images per day
 
-Docker
-------
-
-Stay tuned for a Dockerfile that packages this code into a single unit. For now checkout `alexellis2/raspistill` for a Docker image with the `raspistill` tool installed. 
-
-> You will need to run the container in privileged mode to gain access to the camera.
-
-If you have a HDD or USB pen-drive mounted at /mnt/data, then start the contaniner like this:
-
-```
-# docker run --privileged -v /mnt/data/:/var/image --name cam -d alexellis2/phototimer
-```
-
-If you need specific overrides in your config then mount it into the running container:
-
-```
-#docker run --restart=always --privileged -v `pwd`/phototimer/config.py:/root/images/config.py -v /mnt/data/:/var/image --name cam -d alexellis2/phototimer
-```
-
 
 Troubleshooting
 ---------------

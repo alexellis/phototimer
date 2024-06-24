@@ -20,6 +20,18 @@ class test_camera(unittest.TestCase):
 		exposureCalc1=exposureCalc(700,1700)
 		self.assertEqual(exposureCalc1.get_exposure(600), "night")
 		
+	def test_exposureCalc_spanMidNight_middleBounds_beforeMidnight(self):
+		exposureCalc1=exposureCalc(1700, 700)
+		self.assertEqual(exposureCalc1.get_exposure(1900), 'auto')
+
+	def test_exposureCalc_spanMidNight_middleBounds_afterMidnight(self):
+		exposureCalc1=exposureCalc(1700, 700)
+		self.assertEqual(exposureCalc1.get_exposure(500), 'auto')
+
+	def test_exposureCalc_spanMidNight_outsideBounds(self):
+		exposureCalc1=exposureCalc(1700, 700)
+		self.assertEqual(exposureCalc1.get_exposure(1000), 'night')
+
 	def test_take_shot(self):
 		exp=exposureCalc(700,1700)
 		self.assertEqual(exp.take_shot(1700), True)
